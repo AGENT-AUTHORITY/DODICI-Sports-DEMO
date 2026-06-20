@@ -500,7 +500,17 @@
         <template x-for="r in selectedPlayer.tracking.records" :key="r.club">
           <div class="t-row grid grid-cols-1 sm:grid-cols-12 gap-1 sm:gap-4 py-4 sm:items-center">
             <div class="col-span-3 flex items-center gap-3">
-              <div class="w-8 h-8 border border-[#222] rounded flex items-center justify-center flex-shrink-0 text-[10px] font-medium text-[#C9A24B] tracking-wide" x-text="r.club.substring(0,3).toUpperCase()"></div>
+              <div class="w-11 h-11 rounded-full bg-[#0D0D0D] border border-[#1E1E1E] flex items-center justify-center overflow-hidden flex-shrink-0 p-0.5">
+                <img x-show="getCrest(r.club) && !r._crestErr"
+                     :src="getCrest(r.club)"
+                     @error="r._crestErr = true"
+                     class="w-full h-full object-contain"
+                     :alt="r.club">
+                <span x-show="!getCrest(r.club) || r._crestErr"
+                      class="text-[10px] font-medium text-[#C9A24B] tracking-wide select-none"
+                      x-text="r.club.substring(0,3).toUpperCase()">
+                </span>
+              </div>
               <div>
                 <div class="text-[13px] text-[#C8C4BB]" x-text="r.club"></div>
                 <div class="text-[10px] text-[#3A3A3A]" x-text="r.country"></div>
@@ -573,7 +583,6 @@
 <footer class="border-t border-[#141414] mt-8">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 py-7 flex flex-col sm:flex-row items-center justify-between gap-3">
     <div class="flex items-center gap-3">
-      <img src="images/logo.jpg" alt="Dodici" class="w-6 h-6 object-contain" style="filter: brightness(0) invert(0.4);">
       <span class="serif text-[16px] text-[#C9A24B] tracking-[.1em]">DODICI</span>
     </div>
     <p class="text-[10px] text-[#2E2E2E] tracking-wide text-center">
@@ -940,6 +949,27 @@ function dodici() {
 
     radarPts(attrs) {
       return this.radarArr(attrs).map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+    },
+
+    getCrest(name) {
+      const c = {
+        'Boca Juniors':    'images/clubs/boca.svg',
+        'Sporting CP':     'images/clubs/sporting.svg',
+        'Anderlecht':      'images/clubs/anderlecht.svg',
+        'Ajax Amsterdam':  'images/clubs/ajax.svg',
+        'Benfica':         'images/clubs/benfica.svg',
+        'Atalanta':        'images/clubs/atalanta.svg',
+        'Lazio':           'images/clubs/lazio.svg',
+        'Fiorentina':      'images/clubs/fiorentina.svg',
+        'Hamburger SV':    'images/clubs/hamburger.svg',
+        'Feyenoord':       'images/clubs/feyenoord.svg',
+        'San Lorenzo':     'images/clubs/sanlorenzo.svg',
+        'Independiente':   'images/clubs/independiente.svg',
+        'Rosario Central': 'images/clubs/rosario.svg',
+        'Velez Sarsfield': 'images/clubs/velez.svg',
+        'Lecce':           'images/clubs/lecce.svg',
+      };
+      return c[name] || '';
     },
 
     initScrollReveal() {
