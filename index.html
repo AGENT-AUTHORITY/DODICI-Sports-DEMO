@@ -58,6 +58,7 @@
     .player-card {
       background: var(--c1);
       border: 1px solid #222;
+      overflow: hidden;
       transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease;
       cursor: pointer;
     }
@@ -67,7 +68,11 @@
       box-shadow: 0 24px 48px rgba(201,162,75,.12);
     }
     .card-overlay {
-      background: linear-gradient(to top, rgba(10,10,10,.92) 0%, rgba(10,10,10,.2) 50%, transparent 100%);
+      background: linear-gradient(to top,
+        rgba(8,8,8,1) 0%,
+        rgba(8,8,8,.88) 28%,
+        rgba(8,8,8,.3) 58%,
+        rgba(8,8,8,.08) 100%);
     }
 
     /* stat bars */
@@ -280,7 +285,7 @@
             <!-- Radar SVG -->
             <div>
               <p class="text-[9px] tracking-[.22em] uppercase text-[#4B5563] mb-6 text-center">Radar de atributos</p>
-              <svg viewBox="0 0 300 300" class="w-full max-w-xs mx-auto">
+              <svg viewBox="-40 -22 380 344" class="w-full max-w-xs mx-auto">
                 <circle cx="150" cy="150" r="110" fill="none" stroke="#1E1E1E" stroke-width="1"/>
                 <circle cx="150" cy="150" r="82" fill="none" stroke="#1A1A1A" stroke-width="1"/>
                 <circle cx="150" cy="150" r="55" fill="none" stroke="#191919" stroke-width="1"/>
@@ -294,12 +299,12 @@
                 <template x-for="(pt, i) in radarArr(selectedPlayer.attributes)" :key="i">
                   <circle :cx="pt.x" :cy="pt.y" r="3.5" fill="#C9A24B"/>
                 </template>
-                <text x="150" y="26" text-anchor="middle" fill="#555" font-size="8" font-family="Inter" letter-spacing="1.5">VELOCIDAD</text>
-                <text x="260" y="94" text-anchor="start" fill="#555" font-size="8" font-family="Inter" letter-spacing="1.5">TÉCNICA</text>
-                <text x="260" y="210" text-anchor="start" fill="#555" font-size="8" font-family="Inter" letter-spacing="1.5">FÍSICO</text>
-                <text x="150" y="283" text-anchor="middle" fill="#555" font-size="8" font-family="Inter" letter-spacing="1.5">DEFINICIÓN</text>
-                <text x="40" y="210" text-anchor="end" fill="#555" font-size="8" font-family="Inter" letter-spacing="1.5">VISIÓN</text>
-                <text x="40" y="94" text-anchor="end" fill="#555" font-size="8" font-family="Inter" letter-spacing="1.5">LIDERAZGO</text>
+                <text x="150" y="24" text-anchor="middle" fill="#555" font-size="7" font-family="Inter" letter-spacing="0.9">VELOCIDAD</text>
+                <text x="258" y="93" text-anchor="start" fill="#555" font-size="7" font-family="Inter" letter-spacing="0.9">TÉCNICA</text>
+                <text x="258" y="212" text-anchor="start" fill="#555" font-size="7" font-family="Inter" letter-spacing="0.9">FÍSICO</text>
+                <text x="150" y="284" text-anchor="middle" fill="#555" font-size="7" font-family="Inter" letter-spacing="0.9">DEFINICIÓN</text>
+                <text x="42" y="212" text-anchor="end" fill="#555" font-size="7" font-family="Inter" letter-spacing="0.9">VISIÓN</text>
+                <text x="42" y="93" text-anchor="end" fill="#555" font-size="7" font-family="Inter" letter-spacing="0.9">LIDERAZGO</text>
               </svg>
             </div>
 
@@ -487,14 +492,15 @@
           <div class="col-span-2 text-[9px] tracking-[.22em] uppercase text-[#3A3A3A]">Apertura</div>
           <div class="col-span-2 text-[9px] tracking-[.22em] uppercase text-[#3A3A3A]">Tiempo</div>
           <div class="col-span-3 text-[9px] tracking-[.22em] uppercase text-[#3A3A3A]">Secciones</div>
-          <div class="col-span-1 text-[9px] tracking-[.22em] uppercase text-[#3A3A3A] text-center">Reenvío</div>
-          <div class="col-span-1 text-[9px] tracking-[.22em] uppercase text-[#3A3A3A] text-center">Interés</div>
+          <div class="col-span-2 flex items-center justify-around text-[9px] tracking-[.22em] uppercase text-[#3A3A3A]">
+            <span>Reenvío</span><span>Interés</span>
+          </div>
         </div>
 
         <template x-for="r in selectedPlayer.tracking.records" :key="r.club">
           <div class="t-row grid grid-cols-1 sm:grid-cols-12 gap-1 sm:gap-4 py-4 sm:items-center">
             <div class="col-span-3 flex items-center gap-3">
-              <div class="w-8 h-8 border border-[#222] rounded flex items-center justify-center flex-shrink-0 text-[11px] font-medium text-[#C9A24B]" x-text="r.club.substring(0,2).toUpperCase()"></div>
+              <div class="w-8 h-8 border border-[#222] rounded flex items-center justify-center flex-shrink-0 text-[10px] font-medium text-[#C9A24B] tracking-wide" x-text="r.club.substring(0,3).toUpperCase()"></div>
               <div>
                 <div class="text-[13px] text-[#C8C4BB]" x-text="r.club"></div>
                 <div class="text-[10px] text-[#3A3A3A]" x-text="r.country"></div>
@@ -519,22 +525,24 @@
                   x-text="s"></span>
               </template>
             </div>
-            <div class="col-span-1 text-center">
-              <template x-if="r.fwd">
-                <div class="flex flex-col items-center gap-0.5">
-                  <svg class="w-4 h-4 text-[#C9A24B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                  <span class="text-[9px] text-[#C9A24B]">Si</span>
-                </div>
-              </template>
-              <template x-if="!r.fwd">
-                <span class="text-[#2A2A2A] text-sm">-</span>
-              </template>
-            </div>
-            <div class="col-span-1 flex flex-col items-center gap-1">
-              <div class="w-2.5 h-2.5 rounded-full" :class="{'dot-hot':r.int==='hot','dot-warm':r.int==='warm','dot-cold':r.int==='cold'}"></div>
-              <span class="text-[9px]"
-                :class="{'text-[#E05A45]':r.int==='hot','text-[#C9A24B]':r.int==='warm','text-[#4B5563]':r.int==='cold'}"
-                x-text="r.int==='hot'?'Caliente':r.int==='warm'?'Templado':'Frio'"></span>
+            <div class="col-span-2 flex items-center justify-around">
+              <div class="flex flex-col items-center gap-0.5 w-10">
+                <template x-if="r.fwd">
+                  <div class="flex flex-col items-center gap-0.5">
+                    <svg class="w-4 h-4 text-[#C9A24B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-[9px] text-[#C9A24B]">Sí</span>
+                  </div>
+                </template>
+                <template x-if="!r.fwd">
+                  <span class="text-[#282828] text-sm">—</span>
+                </template>
+              </div>
+              <div class="flex flex-col items-center gap-0.5 w-14">
+                <div class="w-2.5 h-2.5 rounded-full" :class="{'dot-hot':r.int==='hot','dot-warm':r.int==='warm','dot-cold':r.int==='cold'}"></div>
+                <span class="text-[9px]"
+                  :class="{'text-[#E05A45]':r.int==='hot','text-[#C9A24B]':r.int==='warm','text-[#4B5563]':r.int==='cold'}"
+                  x-text="r.int==='hot'?'Caliente':r.int==='warm'?'Templado':'Frío'"></span>
+              </div>
             </div>
           </div>
         </template>
@@ -840,7 +848,7 @@ function dodici() {
 
       {
         id: 6,
-        name: 'Roman Ferreira',
+        name: 'Román Ferreira',
         initials: 'RF',
         position: 'Extremo / Delantero',
         club: 'Boca Juniors',
