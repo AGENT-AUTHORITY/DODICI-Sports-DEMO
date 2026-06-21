@@ -144,9 +144,8 @@
 <!-- ═══════════════════════════ NAV ═══════════════════════════ -->
 <nav class="nav-glass fixed top-0 left-0 right-0 z-50 border-b border-[#1A1A1A]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-    <button @click="go('hub')" class="flex flex-col items-start group">
-      <span class="serif text-[22px] leading-none tracking-[.18em] text-[#C9A24B] group-hover:text-[#D9B56A] transition-colors duration-200">DODICI</span>
-      <span class="text-[8px] tracking-[.32em] uppercase text-[#383530] mt-0.5">Sports Management</span>
+    <button @click="go('hub')" class="flex items-center group opacity-90 hover:opacity-100 transition-opacity duration-200">
+      <img src="images/logo.jpg" alt="DODICI Sports Management" class="h-9 w-auto" style="filter: invert(1) brightness(0.88);">
     </button>
     <div class="flex items-center gap-1 sm:gap-2">
       <button @click="go('hub')" :class="view==='hub' ? 'text-[#C9A24B] border-[#C9A24B30]' : 'text-[#4B5563] border-[#1A1A1A]'" class="text-[9px] tracking-[.22em] uppercase border px-3 py-1.5 transition-all hover:text-[#C9A24B] hover:border-[#C9A24B40]">Cartera</button>
@@ -583,7 +582,7 @@
 <footer class="border-t border-[#141414] mt-8">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 py-7 flex flex-col sm:flex-row items-center justify-between gap-3">
     <div class="flex items-center gap-3">
-      <span class="serif text-[16px] text-[#C9A24B] tracking-[.1em]">DODICI</span>
+      <img src="images/logo.jpg" alt="DODICI Sports Management" class="h-8 w-auto" style="filter: invert(1) brightness(0.88);">
     </div>
     <p class="text-[10px] text-[#2E2E2E] tracking-wide text-center">
       Plataforma desarrollada por <span class="text-[#444]">Authority Agents</span> para Dodici Sports Management &middot; Demo Confidencial
@@ -953,7 +952,7 @@ function dodici() {
 
     getCrest(name) {
       const c = {
-        'Boca Juniors':      'images/clubs/boca.svg',
+        'Boca Juniors':      'images/clubs/boca.jpg',
         'Sporting CP':       'images/clubs/sporting.svg',
         'Anderlecht':        'images/clubs/anderlecht.svg',
         'Ajax Amsterdam':    'images/clubs/ajax.svg',
